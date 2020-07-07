@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+  ayashacc:
+    image: ayashacc
+    build: .
+    environment:
+      NODE_ENV: production
+    ports:
+      - 7000

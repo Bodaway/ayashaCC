@@ -1,0 +1,84 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+            "label": "docker-build-server",
+			"type": "docker-build",
+			"platform": "node",
+			"node": {
+				"package": "${workspaceFolder}/server/package.json"
+			},
+			"dockerBuild": {
+				"dockerfile": "${workspaceFolder}/server/Dockerfile",
+				"context": "${workspaceFolder}/server",
+				"pull": true
+			}
+		},
+		{
+            "label": "docker-build-client",
+			"type": "docker-build",
+			"platform": "node",
+			"node": {
+				"package": "${workspaceFolder}/client/package.json"
+			},
+			"dockerBuild": {
+				"dockerfile": "${workspaceFolder}/client/Dockerfile",
+				"context": "${workspaceFolder}/client",
+				"pull": true
+			}
+		},
+		{
+            "label": "Compose all rebuild",
+            "type": "shell",
+            "problemMatcher": [],
+            "command": "docker-compose -f docker-compose.debug.yml up -d",
+			"dependsOn": [
+				"docker-build-server",
+				"docker-build-client",
+			],
+        },
+		{
+            "label": "Compose rebuild server",
+            "type": "shell",
+            "problemMatcher": [],
+            "command": "docker-compose -f docker-compose.debug.yml up -d",
+			"dependsOn": [
+				"docker-build-server",
+			],
+        },
+		{
+            "label": "Compose rebuild client",
+            "type": "shell",
+            "problemMatcher": [],
+            "command": "docker-compose -f docker-compose.debug.yml up -d",
+			"dependsOn": [
+				"docker-build-client",
+			],
+        },
+		{
+			"type": "docker-run",
+			"label": "docker-run: release",
+			"dependsOn": [
+				"docker-build"
+			],
+			"platform": "node"
+		},
+		{
+			"type": "docker-run",
+			"label": "docker-run: debug",
+			"dependsOn": [
+				"docker-build-server",
+				"docker-build-client",
+			],
+			"dockerRun": {
+				"env": {
+					"DEBUG": "*",
+					"NODE_ENV": "development"
+				} 
+			},
+  			"node": {
+				"enableDebugging": true
+			} 
+		}
+	]
+}

@@ -1,0 +1,52 @@
+version: '3.4'
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    networks: 
+        - backend
+    ports: 
+        - 27017:27017
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    networks: 
+        - backend
+    ports:
+      - 8081:8081
+
+  ayashacc:
+    image: ayashacc
+    build: .
+    networks: 
+        - backend
+        - frontend
+    environment:
+      NODE_ENV: development
+    ports:
+      - 7000:7000
+      - 9229:9229
+    ## set your startup file here
+    command: node --inspect=0.0.0.0:9229 app.js
+
+  ayashacc_client:
+    image: ayashacc_client
+    build: ./client
+    stdin_open: true
+    tty: true
+    networks: 
+        - frontend
+    environment:
+      NODE_ENV: development
+    ports:
+      - 3000:3000
+    command: npm start
+
+
+networks: 
+  backend:
+    driver: bridge
+  frontend:
+    driver: bridge

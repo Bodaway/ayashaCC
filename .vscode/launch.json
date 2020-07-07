@@ -1,0 +1,35 @@
+{
+    // Utilisez IntelliSense pour en savoir plus sur les attributs possibles.
+    // Pointez pour afficher la description des attributs existants.
+    // Pour plus d'informations, visitez : https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Docker rebuild all",
+            "type": "node",
+            "request": "attach",
+            "preLaunchTask": "Compose rebuild all",
+            "remoteRoot": "/usr/src/app",
+            "localRoot": "${workspaceFolder}/server"
+           // "port": 9229  Optional; otherwise inferred from the docker-compose.debug.yml.
+        },
+        {
+            "name": "Docker rebuild server",
+            "type": "node",
+            "request": "attach",
+            "preLaunchTask": "Compose rebuild server",
+            "remoteRoot": "/usr/src/app",
+            "localRoot": "${workspaceFolder}/server"
+           // "port": 9229  Optional; otherwise inferred from the docker-compose.debug.yml.
+        },
+        {
+            "name": "Docker rebuild client",
+            "type": "node",
+            "request": "attach",
+            "preLaunchTask": "Compose rebuild client",
+            "remoteRoot": "/usr/src/app",
+            "localRoot": "${workspaceFolder}/server"
+           // "port": 9229  Optional; otherwise inferred from the docker-compose.debug.yml.
+        },
+    ]
+}
