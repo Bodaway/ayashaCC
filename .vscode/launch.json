@@ -5,6 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Docker no all",
+            "type": "node",
+            "request": "attach",
+            "preLaunchTask": "Compose no rebuild",
+            "remoteRoot": "/usr/src/app",
+            "localRoot": "${workspaceFolder}/server"
+           // "port": 9229  Optional; otherwise inferred from the docker-compose.debug.yml.
+        },
+        {
             "name": "Docker rebuild all",
             "type": "node",
             "request": "attach",

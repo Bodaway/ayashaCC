@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const rest = axios.create({
-  baseURL: 'http://ayashacc:7000/'
+  baseURL: 'http://localhost:7000/'
 })
 
 export const sensorsAPI = () => {

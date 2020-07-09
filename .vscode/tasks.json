@@ -28,7 +28,13 @@
 			}
 		},
 		{
-            "label": "Compose all rebuild",
+            "label": "Compose no rebuild",
+            "type": "shell",
+            "problemMatcher": [],
+            "command": "docker-compose -f docker-compose.debug.yml up -d",
+        },
+		{
+            "label": "Compose rebuild all",
             "type": "shell",
             "problemMatcher": [],
             "command": "docker-compose -f docker-compose.debug.yml up -d",
