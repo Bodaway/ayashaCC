@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "command": "npm start",
+            "cwd": "${workspaceFolder}/client",
+            "name": "Run local client",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
             "name": "Docker no all",
             "type": "node",
             "request": "attach",

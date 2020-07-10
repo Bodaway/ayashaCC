@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {sensorsAPI, locationsAPI} from './API'
+import {sensorsAPI, locationsAPI} from '../API'
 import PropTypes from 'prop-types'
 import LocationSelect from './LocationSelect'
 

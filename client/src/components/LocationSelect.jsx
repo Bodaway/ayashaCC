@@ -26,7 +26,7 @@ const LocationSelect = ({ selectionslist, selectedid, exselect }) => {
 
 LocationSelect.propTypes = {
   selectionslist: PropTypes.array,
-  selectedid: PropTypes.string
+  selectedid: PropTypes.number
 }
 
 export default LocationSelect

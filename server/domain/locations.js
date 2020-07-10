@@ -1,12 +1,7 @@
 
-module.exports.locationStore = () => {
-  var locations = {
-    locations: [
-      { id: 0, name: 'Salon' },
-      { id: 1, name: 'Chambre' }
-    ]
-  }
+module.exports.locationRepo = (physical) => {
   return {
-    obtainAllLocations: () => { return locations }
+    obtainAllLocations: async () => { return physical.Locations.getAll() },
+    add: async (name) => { return physical.Locations.add(name) }
   }
 }

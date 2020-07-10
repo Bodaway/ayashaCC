@@ -8,6 +8,12 @@ export const sensorsAPI = () => {
   return {
     get: () => {
       return rest.get('sensors')
+    },
+    updateLocation: (sensorid, locationid) => {
+      const url = 'sensors/' + sensorid + '/location/' + locationid
+      console.log(url)
+
+      return rest.put(url)
     }
   }
 }
@@ -17,10 +23,8 @@ export const locationsAPI = () => {
     get: () => {
       return rest.get('locations')
     },
-    updateLocation: (sensorid, locationid) => {
-      const url = 'sensors/' + sensorid + '/location/' + locationid
-      console.log(url)
-
+    add: (name) => {
+      const url = 'locations/' + name
       return rest.put(url)
     }
   }

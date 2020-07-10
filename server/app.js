@@ -9,7 +9,7 @@ const sensorDomain = require('./domain/sensors')
 const sensorsRepo = sensorDomain.sensorsRepo(phyStore)
 
 const locationDomain = require('./domain/locations')
-const locationStore = locationDomain.locationStore()
+const locationRepo = locationDomain.locationRepo(phyStore)
 
 // Set up a whitelist and check against it:
 var whitelist = ['http://localhost:3000', 'http://127.0.0.1:3000']
@@ -25,5 +25,5 @@ var corsOptions = {
 }
 
 app.use(cors(corsOptions))
-app.use(routes.initRoutes(express, sensorsRepo, locationStore))
+app.use(routes.initRoutes(express, sensorsRepo, locationRepo))
 app.listen(7000, () => console.log('Example app listening on port 7000!'))
