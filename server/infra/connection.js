@@ -12,12 +12,12 @@ module.exports.getPhysicalStore = () => {
   const sensorSch = new mongoose.Schema({
     id: String,
     protocol: String,
-    idlocation: String,
+    idLocation: String,
     dtDebutVersion: Date,
     dtFinVersion: Date
   })
   const SensorModel = mongoose.model('Sensors', sensorSch)
-  const SensorDotToEntity = (sensor) => { return { id: sensor.id, protocol: sensor.protocol, idlocation: sensor.idlocation } }
+  const SensorDtoToEntity = (sensor) => { return { id: sensor.id, protocol: sensor.protocol, idLocation: sensor.idLocation } }
 
   const locationSch = new mongoose.Schema({
     id: Number,
@@ -51,7 +51,7 @@ module.exports.getPhysicalStore = () => {
     Sensors: {
       getAll: async () => {
         const all = await SensorModel.find({ dtFinVersion: null })
-        return all.map(s => SensorDotToEntity(s))
+        return all.map(s => SensorDtoToEntity(s))
       },
       record: async (sensor) => {
         const current = await SensorModel.find({ id: sensor.id, protocol: sensor.protocol })
@@ -65,7 +65,7 @@ module.exports.getPhysicalStore = () => {
         const newVersion = new SensorModel({
           id: sensor.id,
           protocol: sensor.protocol,
-          idlocation: sensor.idlocation,
+          idLocation: sensor.idLocation,
           dtDebutVersion: dtDebutNewVersion
         })
         await newVersion.save()

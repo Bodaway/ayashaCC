@@ -4,13 +4,13 @@ import PropTypes from 'prop-types'
 import LocationSelect from './LocationSelect'
 
 const Sensor = ({ sensorValue, locations }) => {
-  const [sensor, setsensor] = useState(sensorValue)
+  const [sensor, setSensor] = useState(sensorValue)
 
   const sel = (event) => {
-    const newstate = { ...sensor, idlocation: +event.target.value }
-    setsensor(newstate)
-    locationsAPI()
-      .updateLocation(newstate.id, newstate.idlocation)
+    const newState = { ...sensor, idLocation: +event.target.value }
+    setSensor(newState)
+    sensorsAPI()
+      .updateLocation(newState.id, newState.idLocation)
       .then(function (response) {
         console.log(JSON.stringify(response.data))
       })
@@ -23,8 +23,8 @@ const Sensor = ({ sensorValue, locations }) => {
     <li key={sensor.id.toString()}>
       {sensor.id} - {sensor.protocol}{' '}
       <LocationSelect
-        selectionslist={locations}
-        selectedid={sensor.idlocation}
+        selectionsList={locations}
+        selectedId={sensor.idLocation}
         exselect={sel}
       />
     </li>
@@ -38,8 +38,8 @@ Sensor.propTypes = {
 
 ///sensor control
 export const Sensors = () => {
-  const [devices, setdevices] = useState([])
-  const [locations, setlocations] = useState([])
+  const [devices, setDevices] = useState([])
+  const [locations, setLocations] = useState([])
 
   useEffect(() => {
     sensorsAPI()
@@ -47,7 +47,7 @@ export const Sensors = () => {
       .then(function (response) {
         console.log(JSON.stringify(response.data))
         const data = response.data
-        setdevices(data.devices)
+        setDevices(data.devices)
       })
       .catch(function (error) {
         console.log(error)
@@ -58,7 +58,7 @@ export const Sensors = () => {
       .then(function (response) {
         console.log(JSON.stringify(response.data))
         const data = response.data
-        setlocations(data.locations)
+        setLocations(data.locations)
       })
       .catch(function (error) {
         console.log(error)

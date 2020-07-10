@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-const LocationSelect = ({ selectionslist, selectedid, exselect }) => {
-  const [selected, setSelected] = useState(selectedid)
-  const opt = selectionslist.map((l) => (
+const LocationSelect = ({selectionsList,selectedId, exselect }) => {
+  const [selected, setSelected] = useState(selectedId)
+  const opt = selectionsList.map((l) => (
     <option key={l.id.toString()} value={l.id}>
       {l.name}
     </option>
@@ -25,8 +25,8 @@ const LocationSelect = ({ selectionslist, selectedid, exselect }) => {
 }
 
 LocationSelect.propTypes = {
-  selectionslist: PropTypes.array,
-  selectedid: PropTypes.number
+  selectionsList: PropTypes.array,
+  selectedId: PropTypes.number
 }
 
 export default LocationSelect

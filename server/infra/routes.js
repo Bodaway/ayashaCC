@@ -7,8 +7,8 @@ module.exports.initRoutes = (express, sensorsStore, locationStore) => {
     res.json({ devices: devices })
   })
 
-  router.route('/sensors/:sensorid/location/:locationid').put((req, res) => {
-    res.json(sensorsStore.changeLocation(+req.params.sensorid, +req.params.locationid))
+  router.route('/sensors/:sensorId/location/:locationId').put((req, res) => {
+    res.json(sensorsStore.changeLocation(+req.params.sensorId, +req.params.locationId))
   })
 
   router.route('/locations').get(async function (req, res) {
