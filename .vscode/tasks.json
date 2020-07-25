@@ -2,7 +2,7 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-            "label": "docker-build-server",
+			"label": "docker-build-server",
 			"type": "docker-build",
 			"platform": "node",
 			"node": {
@@ -15,7 +15,7 @@
 			}
 		},
 		{
-            "label": "docker-build-client",
+			"label": "docker-build-client",
 			"type": "docker-build",
 			"platform": "node",
 			"node": {
@@ -28,39 +28,39 @@
 			}
 		},
 		{
-            "label": "Compose no rebuild",
-            "type": "shell",
-            "problemMatcher": [],
-            "command": "docker-compose -f docker-compose.debug.yml up -d",
-        },
+			"label": "Compose no rebuild",
+			"type": "shell",
+			"problemMatcher": [],
+			"command": "docker-compose -f docker-compose.debug.yml up -d"
+		},
 		{
-            "label": "Compose rebuild all",
-            "type": "shell",
-            "problemMatcher": [],
-            "command": "docker-compose -f docker-compose.debug.yml up -d",
+			"label": "Compose rebuild all",
+			"type": "shell",
+			"problemMatcher": [],
+			"command": "docker-compose -f docker-compose.debug.yml up -d",
 			"dependsOn": [
 				"docker-build-server",
-				"docker-build-client",
-			],
-        },
+				"docker-build-client"
+			]
+		},
 		{
-            "label": "Compose rebuild server",
-            "type": "shell",
-            "problemMatcher": [],
-            "command": "docker-compose -f docker-compose.debug.yml up -d",
+			"label": "Compose rebuild server",
+			"type": "shell",
+			"problemMatcher": [],
+			"command": "docker-compose -f docker-compose.debug.yml up -d",
 			"dependsOn": [
-				"docker-build-server",
-			],
-        },
+				"docker-build-server"
+			]
+		},
 		{
-            "label": "Compose rebuild client",
-            "type": "shell",
-            "problemMatcher": [],
-            "command": "docker-compose -f docker-compose.debug.yml up -d",
+			"label": "Compose rebuild client",
+			"type": "shell",
+			"problemMatcher": [],
+			"command": "docker-compose -f docker-compose.debug.yml up -d",
 			"dependsOn": [
-				"docker-build-client",
-			],
-        },
+				"docker-build-client"
+			]
+		},
 		{
 			"type": "docker-run",
 			"label": "docker-run: release",
@@ -74,17 +74,26 @@
 			"label": "docker-run: debug",
 			"dependsOn": [
 				"docker-build-server",
-				"docker-build-client",
+				"docker-build-client"
 			],
 			"dockerRun": {
 				"env": {
 					"DEBUG": "*",
 					"NODE_ENV": "development"
-				} 
+				}
 			},
-  			"node": {
+			"node": {
 				"enableDebugging": true
-			} 
+			}
+		},
+		{
+			"type": "npm",
+			"script": "start",
+			"path": "client/",
+			"problemMatcher": [],
+			"label": "startClient",
+			"detail": "react-scripts start",
+			"isBackground": true
 		}
 	]
 }

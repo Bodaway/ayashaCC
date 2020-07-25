@@ -5,6 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+                "type": "firefox",
+            "request": "launch",
+            "reAttach": true,
+            "name": "Launch localhost",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}",
+            "pathMappings": [
+                {
+                    "url": "http://localhost:3000/home/bod/dev/ayashaCC/client/src",
+                    "path": "${workspaceFolder}/client/src"
+                }
+            ]
+        },
+        {
             "command": "npm start",
             "cwd": "${workspaceFolder}/client",
             "name": "Run local client",
@@ -18,7 +32,6 @@
             "preLaunchTask": "Compose no rebuild",
             "remoteRoot": "/usr/src/app",
             "localRoot": "${workspaceFolder}/server"
-           // "port": 9229  Optional; otherwise inferred from the docker-compose.debug.yml.
         },
         {
             "name": "Docker rebuild all",
@@ -27,7 +40,6 @@
             "preLaunchTask": "Compose rebuild all",
             "remoteRoot": "/usr/src/app",
             "localRoot": "${workspaceFolder}/server"
-           // "port": 9229  Optional; otherwise inferred from the docker-compose.debug.yml.
         },
         {
             "name": "Docker rebuild server",
@@ -36,7 +48,6 @@
             "preLaunchTask": "Compose rebuild server",
             "remoteRoot": "/usr/src/app",
             "localRoot": "${workspaceFolder}/server"
-           // "port": 9229  Optional; otherwise inferred from the docker-compose.debug.yml.
         },
         {
             "name": "Docker rebuild client",
@@ -45,7 +56,6 @@
             "preLaunchTask": "Compose rebuild client",
             "remoteRoot": "/usr/src/app",
             "localRoot": "${workspaceFolder}/server"
-           // "port": 9229  Optional; otherwise inferred from the docker-compose.debug.yml.
-        },
+        }
     ]
 }

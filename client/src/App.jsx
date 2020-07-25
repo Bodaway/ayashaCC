@@ -1,14 +1,27 @@
 import React from 'react'
 import './App.css'
-import { Sensors } from './components/Sensors'
-import { LocationsEditor } from './components/LocationsEditor'
+import Sensors from './components/Sensors'
+import LocationsEditor from './components/LocationsEditor'
 
-function App() {
+const App = () => {
   console.log('hello')
   return (
     <div className="App">
-      <Sensors />
-      <LocationsEditor />
+      <table>
+        <thead>
+          <tr>Ayasha Command and Control</tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <Sensors />
+            </td>
+            <td>
+              <LocationsEditor />
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   )
 }

@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react'
-import {sensorsAPI, locationsAPI} from '../API'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import LocationSelect from './LocationSelect'
+import { sensorsGet, sensorUpdateLocation } from '../actions/sensors'
+import { locationsGet } from '../actions/locations'
 
-const Sensor = ({ sensorValue, locations }) => {
+/**
+ * component, display One sensor
+ * @param {Object} props
+ * @param {import('../Store').sensor} props.sensorValue
+ * @param {import('../Store').location[]} props.locations
+ * @param {Function} props.locationChange execute when change
+ */
+const Sensor = ({ sensorValue, locations, locationChange }) => {
   const [sensor, setSensor] = useState(sensorValue)
 
-  const sel = (event) => {
-    const newState = { ...sensor, idLocation: +event.target.value }
+  const locationChanged = (event) => {
+    const newState = { ...sensor, locationId: +event.target.value }
     setSensor(newState)
-    sensorsAPI()
-      .updateLocation(newState.id, newState.idLocation)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data))
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+    locationChange(newState.locationId)
   }
 
   return (
@@ -24,8 +26,8 @@ const Sensor = ({ sensorValue, locations }) => {
       {sensor.id} - {sensor.protocol}{' '}
       <LocationSelect
         selectionsList={locations}
-        selectedId={sensor.idLocation}
-        exselect={sel}
+        selectedId={sensor.locationId}
+        locationChange={locationChanged}
       />
     </li>
   )
@@ -36,38 +38,59 @@ Sensor.propTypes = {
   locations: PropTypes.array
 }
 
-///sensor control
-export const Sensors = () => {
-  const [devices, setDevices] = useState([])
-  const [locations, setLocations] = useState([])
-
+/**
+ * Sensors component, used to manipulate sensors
+ * @function Sensors
+ * @param {Object} props
+ * @param {import('../Store').sensor[]} props.devices,
+ * @param {import('../Store').location[]} props.locations
+ * @param {Function} props.sensorsGet redux action
+ * @param {Function} props.locationsGet  redux action
+ * @param {Function} props.sensorUpdateLocation redux action
+ */
+export const Sensors = ({
+  devices = [],
+  locations = [],
+  sensorsGet,
+  locationsGet,
+  sensorUpdateLocation
+}) => {
   useEffect(() => {
-    sensorsAPI()
-      .get()
-      .then(function (response) {
-        console.log(JSON.stringify(response.data))
-        const data = response.data
-        setDevices(data.devices)
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+    sensorsGet()
+    locationsGet()
+  }, [sensorsGet,locationsGet])
 
-    locationsAPI()
-      .get()
-      .then(function (response) {
-        console.log(JSON.stringify(response.data))
-        const data = response.data
-        setLocations(data.locations)
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
-  }, [])
+  const setLocations = (sensorId) => (locationId) => {
+    sensorUpdateLocation(sensorId, locationId)
+  }
 
   const lines = devices.map((s) => (
-    <Sensor key={s.id.toString()} sensorValue={s} locations={locations} />
+    <Sensor
+      key={s.id.toString()}
+      sensorValue={s}
+      locations={locations}
+      locationChange={setLocations(s.id)}
+    />
   ))
 
-  return <ul>{lines}</ul>
+  return (
+    <div className="sensors">
+      <h1>Capteurs</h1>
+      <ul>{lines}</ul>
+    </div>
+  )
 }
+
+const mapStateToProps = (state) => {
+  const { sensors: devices, locations } = state
+  return {
+    devices,
+    locations
+  }
+}
+
+export default connect(mapStateToProps, {
+  sensorsGet,
+  locationsGet,
+  sensorUpdateLocation
+})(Sensors)

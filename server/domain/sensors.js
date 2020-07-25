@@ -9,10 +9,10 @@ module.exports.sensorsRepo = (physical) => {
   return {
     obtainAllSensors: async () => { return devices.devices }, // physical.Sensors.getAll()
     obtainSensorById: (id) => { devices.devices.find(d => d.id === id) },
-    changeLocation: (idSensor, idLocation) => {
+    changeLocation: (idSensor, locationId) => {
       var toModify = devices.devices.find(d => d.id === idSensor)
       if (toModify === undefined) { return undefined } else {
-        toModify.idLocation = idLocation
+        toModify.locationId = locationId
       }
       physical.Sensors.record(toModify)
     }

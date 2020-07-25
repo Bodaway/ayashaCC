@@ -1,38 +1,26 @@
 import React, { useState, useEffect } from 'react'
-import { locationsAPI } from '../API'
+import { connect } from 'react-redux'
+import { locationsGet, locationAdd } from '../actions/locations'
 import PropTypes from 'prop-types'
 
-export const LocationsEditor = () => {
-  const [locations, setLocations] = useState([])
+/**
+ * component used to manage Locations
+ * @param {Object} props
+ * @param {import('../Store').location[]} props.locations
+ * @param {Function} props.locationGet redux action
+ * @param {Function} props.locationAdd redux action
+ */
+export const LocationsEditor = ({ locations, locationsGet, locationAdd }) => {
   const [newName, setNewName] = useState('')
 
   useEffect(() => {
-    locationsAPI()
-      .get()
-      .then(function (response) {
-        console.log(JSON.stringify(response.data))
-        const data = response.data
-        setLocations(data.locations)
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
-  }, [])
+    locationsGet()
+  }, [locationsGet])
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    locationsAPI()
-      .add(newName)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data))
-        const data = response.data
-        var currentState = Object.assign([], locations)
-        currentState.push(data)
-        setLocations(currentState)
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+    locationAdd(newName)
+    setNewName("")
   }
 
   const list = locations.map((l) => (
@@ -43,7 +31,8 @@ export const LocationsEditor = () => {
   ))
 
   return (
-    <div>
+    <div className="locationsEditor">
+      <h1>Locations</h1>
       <table>
         <thead>
           <tr>
@@ -74,3 +63,18 @@ export const LocationsEditor = () => {
   )
 }
 
+LocationsEditor.propTypes = {
+  locations: PropTypes.array,
+  locationsGet: PropTypes.func,
+  locationAdd: PropTypes.func
+}
+
+const mapStateToProps = (state) => {
+  const { locations } = state
+  return {
+    locations
+  }
+}
+export default connect(mapStateToProps, { locationsGet, locationAdd })(
+  LocationsEditor
+)
