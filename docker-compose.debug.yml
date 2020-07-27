@@ -14,23 +14,30 @@ services:
       - 8081:8081
 
   ayashacc:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
     image: ayashacc
-    build: ./server
     environment:
       NODE_ENV: development
     ports:
       - 7000:7000
       - 9229:9229
+    volumes: 
+      - ./server:/usr/src/app
     ## set your startup file here
     command: node --inspect=0.0.0.0:9229 app.js
 
   ayashacc_client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
     image: client
-    build: ./client
     stdin_open: true
     tty: true
     environment:
       NODE_ENV: development
     ports:
       - 3000:3000
-    command: npm start
+    volumes: 
+      - ./client:/usr/src/app

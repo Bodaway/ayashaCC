@@ -5,25 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
-                "type": "firefox",
+            "type": "firefox",
             "request": "launch",
             "reAttach": true,
-            "name": "Launch localhost",
+            "name": "Launch Firefox",
             "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}",
+            "webRoot": "${workspaceFolder}/client",
+            "keepProfileChanges": true,
             "pathMappings": [
                 {
-                    "url": "http://localhost:3000/home/bod/dev/ayashaCC/client/src",
-                    "path": "${workspaceFolder}/client/src"
+                    "url": "http://localhost:3000/usr/src/app",
+                    "path": "${workspaceFolder}/client"
                 }
             ]
-        },
-        {
-            "command": "npm start",
-            "cwd": "${workspaceFolder}/client",
-            "name": "Run local client",
-            "request": "launch",
-            "type": "node-terminal"
         },
         {
             "name": "Docker no all",
@@ -31,31 +25,9 @@
             "request": "attach",
             "preLaunchTask": "Compose no rebuild",
             "remoteRoot": "/usr/src/app",
-            "localRoot": "${workspaceFolder}/server"
-        },
-        {
-            "name": "Docker rebuild all",
-            "type": "node",
-            "request": "attach",
-            "preLaunchTask": "Compose rebuild all",
-            "remoteRoot": "/usr/src/app",
-            "localRoot": "${workspaceFolder}/server"
-        },
-        {
-            "name": "Docker rebuild server",
-            "type": "node",
-            "request": "attach",
-            "preLaunchTask": "Compose rebuild server",
-            "remoteRoot": "/usr/src/app",
-            "localRoot": "${workspaceFolder}/server"
-        },
-        {
-            "name": "Docker rebuild client",
-            "type": "node",
-            "request": "attach",
-            "preLaunchTask": "Compose rebuild client",
-            "remoteRoot": "/usr/src/app",
-            "localRoot": "${workspaceFolder}/server"
+            "localRoot": "${workspaceFolder}/server",
+            "trace": true,
+            "port": 9229,
         }
     ]
 }

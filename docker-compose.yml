@@ -4,10 +4,27 @@ services:
   mongo:
     image: mongo
     restart: always
+    ports: 
+        - 27017:27017
+
   ayashacc:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.prod
     image: ayashacc
-    build: .
     environment:
       NODE_ENV: production
     ports:
-      - 7000
+      - 7000:7000
+
+  ayashacc_client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.prod
+    image: client
+    stdin_open: true
+    tty: true
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3000:3000
