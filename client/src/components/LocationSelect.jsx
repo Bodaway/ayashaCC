@@ -15,14 +15,12 @@ const LocationSelect = ({ selectionsList, selectedId, locationChange }) => {
   }
 
   return (
-    <div>
       <select name="locationSelect" value={selected} onChange={selectionChange}>
         <option key="-1" value="undefined">
           non assigner
         </option>
         {opt}
       </select>
-    </div>
   )
 }
 

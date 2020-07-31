@@ -7,21 +7,12 @@ const App = () => {
   console.log('hello')
   return (
     <div className="App">
-      <table>
-        <thead>
-          <tr>Ayasha Command and Control</tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <Sensors />
-            </td>
-            <td>
-              <LocationsEditor />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <h1 className="mainTitle">Ayasha Command & Control</h1>
+      <div className="sections">
+       <Sensors />
+      <LocationsEditor /> 
+      </div>
+      
     </div>
   )
 }

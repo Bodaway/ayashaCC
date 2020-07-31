@@ -20,7 +20,7 @@ export const LocationsEditor = ({ locations, locationsGet, locationAdd }) => {
   const handleSubmit = (event) => {
     event.preventDefault()
     locationAdd(newName)
-    setNewName("")
+    setNewName('')
   }
 
   const list = locations.map((l) => (
@@ -30,36 +30,50 @@ export const LocationsEditor = ({ locations, locationsGet, locationAdd }) => {
     </tr>
   ))
 
-  return (
-    <div className="locationsEditor">
-      <h1>Locations</h1>
-      <table>
+  const getHeader = () => {
+    if (locations.length === 0) {
+      return (
+        <thead>
+          <tr>
+            <td>pas encore de locations</td>
+          </tr>
+        </thead>
+      )
+    } else {
+      return (
         <thead>
           <tr>
             <td>ID</td>
             <td>Nom</td>
           </tr>
         </thead>
+      )
+    }
+  }
+
+  return (
+    <section className="locationsEditor">
+      <h1>Locations</h1>
+      <table>
+        {getHeader()}
         <tbody>{list}</tbody>
         <tfoot>
           <tr>
-            <td>
+            <td colSpan="2">
               <form onSubmit={handleSubmit}>
-                <label>
-                  Nom :
-                  <input
-                    type="text"
-                    value={newName}
-                    onChange={(event) => setNewName(event.target.value)}
-                  />
-                </label>
-                <input type="submit" value="Creer" />
+                <label htmlFor="newlocation">Nom :</label>
+                <input name="newlocation"
+                  type="text"
+                  value={newName}
+                  onChange={(event) => setNewName(event.target.value)}
+                />
+                <button type="submit">Créer</button>
               </form>
             </td>
           </tr>
         </tfoot>
       </table>
-    </div>
+    </section>
   )
 }
 

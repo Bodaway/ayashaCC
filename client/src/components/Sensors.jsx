@@ -23,7 +23,7 @@ const Sensor = ({ sensorValue, locations, locationChange }) => {
 
   return (
     <li key={sensor.id.toString()}>
-      {sensor.id} - {sensor.protocol}{' '}
+      <label htmlFor="LocationSelect">{sensor.protocol} ({sensor.id})</label>
       <LocationSelect
         selectionsList={locations}
         selectedId={sensor.locationId}
@@ -74,10 +74,10 @@ export const Sensors = ({
   ))
 
   return (
-    <div className="sensors">
+    <section className="sensors">
       <h1>Capteurs</h1>
       <ul>{lines}</ul>
-    </div>
+    </section>
   )
 }
 
